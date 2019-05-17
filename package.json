@@ -1,0 +1,41 @@
+{
+  "name": "blockchain",
+  "version": "0.0.1",
+  "description": "A blockchain validate project with Node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArchieR7/Blockchain.git"
+  },
+  "keywords": [
+    "blockchain"
+  ],
+  "author": "Archie",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ArchieR7/Blockchain/issues"
+  },
+  "config": {
+    "ghooks": {
+      "commit-msg": "./validate-commit-msg.js"
+    },
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "homepage": "https://github.com/ArchieR7/Blockchain#readme",
+  "devDependencies": {
+    "cz-conventional-changelog": "^2.1.0",
+    "ghooks": "^2.0.4",
+    "semver-regex": "^3.1.0"
+  },
+  "dependencies": {
+    "bip39": "^3.0.2",
+    "bs58": "^4.0.1",
+    "crypto": "^1.0.1",
+    "hdkey": "^1.1.1"
+  }
+}
