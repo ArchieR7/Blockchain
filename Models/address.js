@@ -11,13 +11,15 @@ const version = {
     testnet: 'ef',
     regtest: 'ef'
 }
+const ETHTransaction = require('ethereumjs-tx')
 
 var mnemonic = 'scale current glide mimic okay offer hawk maple clump spice farm home'
 if (mnemonic == '') {   
     mnemonic = BIP39.generateMnemonic()
 }
-console.log('mnemonic: ' + mnemonic)
-BIP39.mnemonicToSeed(mnemonic).then(bytes => bytes.toString('hex')).then(SeedToHDKey)
+// console.log('mnemonic: ' + mnemonic)
+// BIP39.mnemonicToSeed(mnemonic).then(bytes => bytes.toString('hex')).then(SeedToHDKey)
+GetETHTransaction()
 
 function SeedToHDKey(seed) {
     console.log('Seed: ' + seed)
@@ -74,4 +76,22 @@ function BTCAddress(publicKey) {
     let checkSumSHA256 = Crypto.createHash('sha256').update(new Buffer.from(prefix + ripemdResult, 'hex')).digest('hex')
     let checkSum = Crypto.createHash('sha256').update(new Buffer.from(checkSumSHA256, 'hex')).digest('hex').substring(0, 8)
     return Base58.encode(new Buffer.from(prefix + ripemdResult + checkSum, 'hex'))
+}
+
+function GetETHTransaction() {
+    let parameters = {
+        "nonce": "0x6e",
+        "gasLimit": "0x060000",
+        "to": "0x85b7ca161C311d9A5f0077d5048CAdFace89a267",
+        "value": "0x015950000000000000000000",
+        "gasPrice": "0x040000000000",
+        "data": "",
+        "chainId": 1
+    }
+    const transaction = new ETHTransaction(parameters)
+    let privateKey = new Buffer.from("e331b6d69882b4cb4ea581d88e0b604039a3de5967688d3dcffdd2270c0fd109", "hex")
+    let hash = transaction.hash(true)
+    transaction.sign(privateKey)
+    console.log(transaction.raw)
+    console.log(transaction.serialize().toString('hex'))
 }
